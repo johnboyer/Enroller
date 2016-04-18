@@ -1,0 +1,25 @@
+{
+	"students": [
+		{
+			"firstName": "Jane",
+			"lastName": "Doe",
+			"email": "jane@example.com",
+			"dateEnrolled": "2015-08-28",
+			"birthday": "1996-07-07"
+		},
+		{
+			"firstName": "John",
+			"lastName": "Smith",
+			"email": "johnsmith@example.com",
+			"dateEnrolled": "2014-08-15",
+			"birthday": "1995-05-29"
+		},
+		{
+			"firstName": "Jennifer",
+			"lastName": "Jones",
+			"email": "jennifer@example.com",
+			"dateEnrolled": "2015-08-21",
+			"birthday": "1996-04-18"
+		}
+	]
+}

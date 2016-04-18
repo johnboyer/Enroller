@@ -1,0 +1,54 @@
+{
+	"courses": [
+		{
+			"code": "CS101",
+			"title": "Intro to Computer Science",
+			"creditHours": 3,
+			"startTime": "09:00",
+			"duration": 3600,
+			"days": [
+				"M",
+				"W",
+				"F"
+			],
+			"capacity": 100
+		},
+		{
+			"code": "CS105",
+			"title": "Computer Programming I",
+			"creditHours": 3,
+			"startTime": "10:15",
+			"duration": 4500,
+			"days": [
+				"T",
+				"Th"
+			],
+			"capacity": 50
+		},
+		{
+			"code": "CS106",
+			"title": "Computer Programming II",
+			"creditHours": 3,
+			"startTime": "10:15",
+			"duration": 4500,
+			"days": [
+				"T",
+				"Th"
+			],
+			"capacity": 50
+		},
+		{
+			"code": "CS111",
+			"title": "Data Programming",
+			"creditHours": 3,
+			"startTime": "11:30",
+			"duration": 3600,
+			"days": [
+				"M",
+				"W",
+				"F"
+			],
+			"capacity": 50
+		}
+	]
+}

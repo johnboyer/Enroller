@@ -2,20 +2,93 @@
 //  AppDelegate.swift
 //  Enroller
 //
-//  Created by John's Developer Account on 4/15/16.
-//  Copyright © 2016 Rodax Software. All rights reserved.
-//
+/*
+	Created by John Boyer on 4/14/16.
+	Copyright © 2016 Rodax Software. All rights reserved.
+ 
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+ 
+	http://www.apache.org/licenses/LICENSE-2.0
+ 
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+ */
 
 import UIKit
+import CocoaLumberjack
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    private func debug(student: Student) {
+        print("Custom debugDescription:")
+        print(student.debugDescription);
+        print()
+        
+        print("stdlib dump method:")
+        /// Dump the entire object to the output stream
+        dump(student)
+        print()
+        
+        print("stdlib debugPrint method:")
+        debugPrint(student);
+    }
+    
+    func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+
+        let logger = DDTTYLogger.sharedInstance()
+        logger.logFormatter = CustomDDLogFormatter()
+        DDLog.addLogger(logger) // TTY = Xcode console
+        DDLog.addLogger(DDASLLogger.sharedInstance()) // ASL = Apple System Logs
+        
+        let fileLogger: DDFileLogger = DDFileLogger() // File Logger
+        fileLogger.rollingFrequency = 60*60*24  // 24 hours
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+        DDLog.addLogger(fileLogger)
+        
+        DDLogInfo("Logging framework initialized")
+        return true
+    }
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        DDLogInfo("App launched")
+        
+
+        
+        //1) Initialize School object
+        let school = School()
+        
+        //2 Enroll a student
+        let aStudent = Student()
+        aStudent.firstName = "Alex"
+        aStudent.lastName = "Brown"
+        aStudent.email = "alex@example.com"
+        
+        let components = NSDateComponents()
+        components.day = 4
+        components.month = 4;
+        components.year = 1998
+        
+        let calendar = NSCalendar.currentCalendar();
+        aStudent.birthday = calendar.dateFromComponents(components)
+        
+        school.enroll(aStudent)
+        
+        //3) Withdraw a student
+        
+        
         return true
     }
 
@@ -40,7 +113,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
