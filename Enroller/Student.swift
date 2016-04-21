@@ -35,6 +35,18 @@ public class Student {
     var birthday:NSDate?
     /// Date formatter object
     private static let dateFormatter = NSDateFormatter()
+    
+    convenience init(email: String, firstName: String, lastName: String, birthday: String) {
+        self.init()
+        
+        self.email = email
+        self.firstName = firstName
+        self.lastName = lastName
+        
+        Student.dateFormatter.dateFormat = "yyyy-MM-dd"
+        self.birthday = Student.dateFormatter.dateFromString(birthday)
+        
+    }
 
     convenience init(dictionary: [String: AnyObject]) throws {
         self.init()
@@ -112,12 +124,13 @@ extension Student: CustomDebugStringConvertible {
         
         let clazz = "Student: "
         //Specifying NSDictionary for better formatting
-        let details: NSDictionary = ["firstName": firstName!,
-                       "lastName": lastName!,
-                       "email": email!,
-                       "age": age.description,
-                       "birthday": Student.dateFormatter.stringFromDate(birthday!),
-                       "dateEnrolled": Student.dateFormatter.stringFromDate(dateEnrolled!)]
+        let aNull = NSNull()
+        let details: NSDictionary = ["firstName": firstName != nil ? firstName!: aNull,
+                                     "lastName": lastName != nil ? lastName!:aNull,
+                                     "email": email != nil ? email!: aNull,
+                                     "age": age.description,
+                                     "birthday": birthday != nil ? Student.dateFormatter.stringFromDate(birthday!): aNull,
+                                     "dateEnrolled": dateEnrolled != nil ? Student.dateFormatter.stringFromDate(dateEnrolled!): aNull]
         
         return clazz + details.description;
     }

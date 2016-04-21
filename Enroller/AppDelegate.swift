@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, willFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
 
+        //Configure CocoaLumberjack
         let logger = DDTTYLogger.sharedInstance()
         logger.logFormatter = CustomDDLogFormatter()
         DDLog.addLogger(logger) // TTY = Xcode console
@@ -65,30 +66,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DDLogInfo("App launched")
         
-
-        
         //1) Initialize School object
+        DDLogInfo("Instantiate the School object")
         let school = School()
         
         //2 Enroll a student
-        let aStudent = Student()
-        aStudent.firstName = "Alex"
-        aStudent.lastName = "Brown"
-        aStudent.email = "alex@example.com"
+//        aStudent.firstName = "Alex"
+//        aStudent.lastName = "Brown"
+//        aStudent.email = "alex@example.com"
+//        
+//        let components = NSDateComponents()
+//        components.day = 4
+//        components.month = 4;
+//        components.year = 1998
+//
+//        let calendar = NSCalendar.currentCalendar();
+//        aStudent.birthday = calendar.dateFromComponents(components)
         
-        let components = NSDateComponents()
-        components.day = 4
-        components.month = 4;
-        components.year = 1998
+        let alex = Student(email: "alex@example.com",
+                           firstName: "Alex",
+                           lastName: "Brown",
+                           birthday: "1998-04-04")
         
-        let calendar = NSCalendar.currentCalendar();
-        aStudent.birthday = calendar.dateFromComponents(components)
-        
-        school.enroll(aStudent)
+        school.enroll(alex)
         
         //3) Withdraw a student
+
+        let email = "jennifer@example.com"
+        let jennifer = school.findStudent(email)
+        if jennifer != nil {
+            school.withdraw(jennifer!)
+        } else {
+            DDLogWarn("`\(email)` not found")
+        }
         
-        
+            
         return true
     }
 

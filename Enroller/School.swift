@@ -28,6 +28,7 @@ public class School {
     /// School Name
     private let name = "Swift University"
     
+    private var applicants = [Applicant]()
     /// List of students
     private var students = [Student]()
     /// Course catalog
@@ -40,7 +41,57 @@ public class School {
         return try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
     }
     
-    func initializeRoster() throws {
+    private func initializeApplicants(users: [[String: AnyObject]]) {
+        
+        for user in users {
+            do {
+                let applicant = try Applicant(dictionary: user)
+                applicants.append(applicant)
+            } catch {
+                print("JSON error: \(error)")
+            }
+        }
+        
+         DDLogDebug("Finished initializing applicants: \(applicants)")
+    }
+    
+    private func initializeApplicants() {
+        let baseUri = "http://jsonplaceholder.typicode.com"
+        let path = "/users"
+        
+        let url = NSURL(string: baseUri + path)
+        let request = NSURLRequest(URL: url!)
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        let session = NSURLSession(configuration: config)
+        
+        DDLogInfo("Initializing applicants")
+        let task = session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
+            
+            if(error != nil) {
+                DDLogError("Error fetching applications from server: \(error)")
+            } else {
+                
+                do {
+                    let users = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! [[String: AnyObject]]
+                    
+                    dispatch_async(dispatch_get_main_queue(), {
+                        self.initializeApplicants(users)
+                    })
+                    
+                }  catch  {
+                    print("JSON error: \(error)")
+                    
+                }
+            }
+            
+        })
+        
+        // do whatever you need with the task e.g. run
+        task.resume()
+        
+    }
+    
+    private func initializeRoster() throws {
         DDLogInfo("Initializing student roster")
         
         guard let json = try readJSONFile("students") as? [String: AnyObject] else {
@@ -86,6 +137,7 @@ public class School {
         do {
             try initializeCatalog()
             try initializeRoster()
+            initializeApplicants()
             DDLogInfo("Finished School initialization")
         } catch JSONError.KeyNotFound(let key) {
             DDLogError("`\(key)` JSON key not found")
@@ -116,6 +168,17 @@ public class School {
         return enrolled
     }
     
+    /// Finds student with given email
+    public func findStudent(email: String) -> Student? {
+        for student in students {
+            if student.email == email {
+                return student
+            }
+        }
+        
+        return nil
+    }
+    
     /// Withdraws a student
     public func withdraw(student: Student) -> Bool {
         
@@ -124,8 +187,12 @@ public class School {
         if (index != nil) {
             students.removeAtIndex(index!);
             removed = true
+            DDLogInfo("\(student.email) withdrawn")
+            DDLogInfo("Withdrawn: \(student)")
+            
         }
         else {
+            DDLogWarn("\(student.email) not enrolled")
             removed = false
         }
         
