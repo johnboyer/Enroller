@@ -22,13 +22,19 @@
 
 import Foundation
 
+/// Applicant class
 public class Applicant {
     
+    /// Address object
     var address: Address
+    /// Full name
     var name: String
+    /// Email address
     var email: String
+    /// Applicant ID
     var applicantId: Int
     
+    /// Init
     init(applicantId: Int, name: String, email: String, address: Address) {
         self.applicantId = applicantId
         self.name = name
@@ -36,6 +42,7 @@ public class Applicant {
         self.address = address
     }
     
+    /// Init takes a dictionary
     convenience init(dictionary: [String: AnyObject]) throws {
         guard let email = dictionary["email"] as! String? else {
             throw JSONError.KeyNotFound("email")
@@ -60,18 +67,21 @@ public class Applicant {
     
 }
 
+//MARK: - CustomStringConvertible
 extension Applicant: CustomStringConvertible {
     public var description: String {
         return debugDescription;
     }
 }
 
+//MARK: - CustomDebugStringConvertible
 extension Applicant: CustomDebugStringConvertible {
     public var debugDescription: String {
         let clazz = "Applicant: "
         let details: NSDictionary = ["applicantId": applicantId,
                                      "name": name,
-                                     "email": email]
+                                     "email": email,
+                                     "address": address.description]
         return clazz + details.description
     }
 }

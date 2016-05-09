@@ -89,3 +89,42 @@ struct Address {
     }
     
 }
+
+//MARK: - Address.CustomStringConvertible
+extension Address: CustomStringConvertible {
+    var description: String {
+        return debugDescription
+    }
+}
+
+//MARK: - Address.CustomDebugStringConvertible
+extension Address: CustomDebugStringConvertible {
+    var debugDescription: String {
+        let clazz = "Address: "
+        let details: NSDictionary = ["street": street,
+                                     "suite": suite != nil ? suite! : NSNull(),
+                                     "city": city,
+                                     "zipcode": zipcode,
+                                     "geo": geo.description]
+        
+        return clazz + details.description
+    }
+}
+
+//MARK: - Address.Geolocation.CustomStringConvertible
+extension Address.Geolocation: CustomStringConvertible {
+    var description: String {
+        return debugDescription
+    }
+}
+
+//MARK: - Address.Geolocation.CustomDebugStringConvertible
+extension Address.Geolocation: CustomDebugStringConvertible {
+    var debugDescription: String {
+        let clazz = "Geolocation: "
+        let details: NSDictionary = ["latitude": latitude,
+                                     "longitude": longitude]
+        return clazz + details.description
+        
+    }
+}
