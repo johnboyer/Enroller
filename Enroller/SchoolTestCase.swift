@@ -1,10 +1,10 @@
 //
-//  EnrollerTests.swift
-//  EnrollerTests
+//  SchoolTestCase.swift
+//  Enroller
 //
 //
 /*
-    Created by John Boyer on 4/15/16.
+    Created by John Boyer on 5/9/16.
 	Copyright © 2016 Rodax Software, Inc. All rights reserved.
  
 	Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +20,20 @@
 	limitations under the License.
  */
 
-import XCTest
-@testable import Enroller
 
-class EnrollerTests: XCTestCase {
+import XCTest
+import CocoaLumberjack
+
+/// School test case
+class SchoolTestCase: XCTestCase {
+
+    /// School object
+    var school: School?
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        self.school = School()
     }
     
     override func tearDown() {
@@ -35,16 +41,48 @@ class EnrollerTests: XCTestCase {
         super.tearDown()
     }
     
+    /// Test School.withdraw()
+    func testWithdraw() {
+        if let student = school?.findStudent("jennifer@example.com") {
+            XCTAssertTrue(school!.withdraw(student))
+            XCTAssertFalse(school!.withdraw(student))
+        } else {
+            XCTFail("Failed to find student")
+        }
+    }
+    
+    /// Test School.enroll(_:)
+    func testEnroll() {
+        DDLogInfo("Enroll")
+        
+        let alex = Student(email: "alex@example.com",
+                           firstName: "Alex",
+                           lastName: "Brown",
+                           birthday: "1998-04-04")
+        
+        XCTAssertTrue(school!.enroll(alex))
+        XCTAssertFalse(school!.enroll(alex))
+    }
+    
+    /// Test School.findStudent(_:)
+    func testFindStudent() {
+        DDLogInfo("Finding student")
+    
+        XCTAssertNil(school?.findStudent("john@example"))
+        XCTAssertNotNil(school?.findStudent("jane@example.com"))
+        XCTAssertNotNil(school?.findStudent("jennifer@example.com"))
+    }
+    
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-    
+
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measureBlock {
             // Put the code you want to measure the time of here.
         }
     }
-    
+
 }

@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		112AB4DE001C948B2297472D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A4AC6AD5F9B64E7A849671 /* Pods.framework */; };
+		2F06CDBD1CE138F90019D4A6 /* SchoolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F06CDBC1CE138F90019D4A6 /* SchoolTestCase.swift */; };
+		2F06CDBE1CE13CE40019D4A6 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C301CC1CB3700D84B01 /* Course.swift */; };
+		2F06CDBF1CE13CE50019D4A6 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C301CC1CB3700D84B01 /* Course.swift */; };
+		2F06CDC01CE13CEC0019D4A6 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C311CC1CB3700D84B01 /* School.swift */; };
+		2F06CDC11CE13CEE0019D4A6 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C311CC1CB3700D84B01 /* School.swift */; };
+		2F06CDC21CE13CF70019D4A6 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C321CC1CB3700D84B01 /* Student.swift */; };
+		2F06CDC31CE13CF70019D4A6 /* Student.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C321CC1CB3700D84B01 /* Student.swift */; };
+		2F06CDC41CE13CFB0019D4A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C041CC1CA9300D84B01 /* ViewController.swift */; };
+		2F06CDC51CE13CFB0019D4A6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C041CC1CA9300D84B01 /* ViewController.swift */; };
 		2F12961C1CCDA5F000FD960F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12961B1CCDA5F000FD960F /* Address.swift */; };
 		2F12961D1CCDA5F000FD960F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12961B1CCDA5F000FD960F /* Address.swift */; };
 		2F12961E1CCDA5F000FD960F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12961B1CCDA5F000FD960F /* Address.swift */; };
@@ -60,6 +69,7 @@
 
 /* Begin PBXFileReference section */
 		24590FEFC770D31F8ED91E11 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		2F06CDBC1CE138F90019D4A6 /* SchoolTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SchoolTestCase.swift; path = ../Enroller/SchoolTestCase.swift; sourceTree = "<group>"; };
 		2F12961B1CCDA5F000FD960F /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		2F4469B11CC8467D003E1D3E /* Applicant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Applicant.swift; sourceTree = "<group>"; };
 		2F5D7BFF1CC1CA9300D84B01 /* Enroller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enroller.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +180,7 @@
 			children = (
 				2F5D7C171CC1CA9300D84B01 /* EnrollerTests.swift */,
 				2F5D7C191CC1CA9300D84B01 /* Info.plist */,
+				2F06CDBC1CE138F90019D4A6 /* SchoolTestCase.swift */,
 			);
 			path = EnrollerTests;
 			sourceTree = "<group>";
@@ -408,11 +419,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F06CDC41CE13CFB0019D4A6 /* ViewController.swift in Sources */,
 				2FB26FAE1CC40EDD00D889BA /* CustomDDLogFormatter.swift in Sources */,
+				2F06CDBE1CE13CE40019D4A6 /* Course.swift in Sources */,
 				2F5D7C181CC1CA9300D84B01 /* EnrollerTests.swift in Sources */,
 				2F4469B31CC8467D003E1D3E /* Applicant.swift in Sources */,
+				2F06CDC21CE13CF70019D4A6 /* Student.swift in Sources */,
+				2F06CDBD1CE138F90019D4A6 /* SchoolTestCase.swift in Sources */,
 				2F5EFCC61CC459DE00EAB041 /* Enroller.swift in Sources */,
 				2F12961D1CCDA5F000FD960F /* Address.swift in Sources */,
+				2F06CDC01CE13CEC0019D4A6 /* School.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -420,11 +436,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F06CDC11CE13CEE0019D4A6 /* School.swift in Sources */,
+				2F06CDBF1CE13CE50019D4A6 /* Course.swift in Sources */,
 				2FB26FAF1CC40EDD00D889BA /* CustomDDLogFormatter.swift in Sources */,
+				2F06CDC51CE13CFB0019D4A6 /* ViewController.swift in Sources */,
 				2F5D7C231CC1CA9300D84B01 /* EnrollerUITests.swift in Sources */,
 				2F4469B41CC8467D003E1D3E /* Applicant.swift in Sources */,
 				2F5EFCC71CC459DE00EAB041 /* Enroller.swift in Sources */,
 				2F12961E1CCDA5F000FD960F /* Address.swift in Sources */,
+				2F06CDC31CE13CF70019D4A6 /* Student.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -584,7 +604,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rodaxsoft.demo.EnrollerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Enroller/EnrollerTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Enroller.app/Enroller";
 			};
@@ -599,7 +619,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.rodaxsoft.demo.EnrollerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Enroller/EnrollerTests-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Enroller.app/Enroller";
 			};
 			name = Release;
