@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		112AB4DE001C948B2297472D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A4AC6AD5F9B64E7A849671 /* Pods.framework */; };
+		2F12961C1CCDA5F000FD960F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12961B1CCDA5F000FD960F /* Address.swift */; };
+		2F12961D1CCDA5F000FD960F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12961B1CCDA5F000FD960F /* Address.swift */; };
+		2F12961E1CCDA5F000FD960F /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F12961B1CCDA5F000FD960F /* Address.swift */; };
 		2F4469B21CC8467D003E1D3E /* Applicant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4469B11CC8467D003E1D3E /* Applicant.swift */; };
 		2F4469B31CC8467D003E1D3E /* Applicant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4469B11CC8467D003E1D3E /* Applicant.swift */; };
 		2F4469B41CC8467D003E1D3E /* Applicant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4469B11CC8467D003E1D3E /* Applicant.swift */; };
@@ -57,6 +60,7 @@
 
 /* Begin PBXFileReference section */
 		24590FEFC770D31F8ED91E11 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		2F12961B1CCDA5F000FD960F /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		2F4469B11CC8467D003E1D3E /* Applicant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Applicant.swift; sourceTree = "<group>"; };
 		2F5D7BFF1CC1CA9300D84B01 /* Enroller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enroller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2F5D7C021CC1CA9300D84B01 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 				2F5D7C311CC1CB3700D84B01 /* School.swift */,
 				2F5D7C321CC1CB3700D84B01 /* Student.swift */,
 				2F5D7C041CC1CA9300D84B01 /* ViewController.swift */,
+				2F12961B1CCDA5F000FD960F /* Address.swift */,
 			);
 			path = Enroller;
 			sourceTree = "<group>";
@@ -387,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F12961C1CCDA5F000FD960F /* Address.swift in Sources */,
 				2FB26FAD1CC40EDD00D889BA /* CustomDDLogFormatter.swift in Sources */,
 				2F5D7C331CC1CB3700D84B01 /* Course.swift in Sources */,
 				2F5EFCC51CC459DE00EAB041 /* Enroller.swift in Sources */,
@@ -406,6 +412,7 @@
 				2F5D7C181CC1CA9300D84B01 /* EnrollerTests.swift in Sources */,
 				2F4469B31CC8467D003E1D3E /* Applicant.swift in Sources */,
 				2F5EFCC61CC459DE00EAB041 /* Enroller.swift in Sources */,
+				2F12961D1CCDA5F000FD960F /* Address.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,6 +424,7 @@
 				2F5D7C231CC1CA9300D84B01 /* EnrollerUITests.swift in Sources */,
 				2F4469B41CC8467D003E1D3E /* Applicant.swift in Sources */,
 				2F5EFCC71CC459DE00EAB041 /* Enroller.swift in Sources */,
+				2F12961E1CCDA5F000FD960F /* Address.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

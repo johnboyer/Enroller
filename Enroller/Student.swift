@@ -2,9 +2,10 @@
 //  Student.swift
 //  Enroller
 //
+//
 /*
 	Created by John Boyer on 4/14/16.
-	Copyright © 2016 Rodax Software. All rights reserved.
+	Copyright © 2016 Rodax Software, Inc. All rights reserved.
  
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -24,17 +25,19 @@ import Foundation
 public class Student {
     
     /// Email
-    var email: String?
+    var email: String = "john@example.com"
     /// First Name
-    var firstName: String?
+    var firstName: String = "John"
     /// Last Name
-    var lastName: String?
+    var lastName: String = "Doe"
     /// Date enrolled
     var dateEnrolled:NSDate?
-    /// Birthday
-    var birthday:NSDate?
+    /// Birthday, implicitly unwrapped with !
+    var birthday:NSDate!
     /// Date formatter object
     private static let dateFormatter = NSDateFormatter()
+    /// Static dispatch token
+    private static var dispatchToken = 0;
     
     convenience init(email: String, firstName: String, lastName: String, birthday: String) {
         self.init()
@@ -42,64 +45,69 @@ public class Student {
         self.email = email
         self.firstName = firstName
         self.lastName = lastName
-        
-        Student.dateFormatter.dateFormat = "yyyy-MM-dd"
         self.birthday = Student.dateFormatter.dateFromString(birthday)
-        
     }
 
     convenience init(dictionary: [String: AnyObject]) throws {
-        self.init()
-        
+
         guard let email = dictionary["email"] as? String else {
             throw JSONError.KeyNotFound("email")
         }
-        
-        self.email = email;
         
         guard let firstName = dictionary["firstName"] as? String else {
             throw JSONError.KeyNotFound("firstName")
         }
         
-        self.firstName = firstName
-        
         guard let lastName = dictionary["lastName"] as? String else {
             throw JSONError.KeyNotFound("lastName")
         }
-        
-        self.lastName = lastName
         
         guard let enrolled = dictionary["dateEnrolled"] as? String else {
             throw JSONError.KeyNotFound("dateEnrolled")
         }
         
-        Student.dateFormatter.dateFormat = "yyyy-MM-dd"
-        self.dateEnrolled = Student.dateFormatter.dateFromString(enrolled)
-     
         guard let birthday = dictionary["birthday"] as? String else {
             throw JSONError.KeyNotFound("birthday")
         }
         
-        self.birthday = Student.dateFormatter.dateFromString(birthday)
-
+        self.init(email: email, firstName: firstName, lastName: lastName, birthday: birthday)
+        
+        self.dateEnrolled = Student.dateFormatter.dateFromString(enrolled)
     }
+    
     
     init() {
-        Student.dateFormatter.lenient = false
-        Student.dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
-        Student.dateFormatter.timeZone = NSTimeZone(abbreviation: "PDT")
-        
+        Student.initializeDateFormatter()
     }
     
-    /// Age
-    var age: Int {
+    /// Age returns nil if birthday is nil
+    var age: Int? {
+        if birthday != nil {
             let calendar = NSCalendar.currentCalendar();
-            let birthdayComps = calendar.components(NSCalendarUnit.Year, fromDate: birthday!)
+            let birthdayComps = calendar.components(NSCalendarUnit.Year, fromDate: birthday)
             let todayComps = calendar.components(NSCalendarUnit.Year, fromDate: NSDate())
             return todayComps.year - birthdayComps.year;
+        }
+        else {
+            return nil
+        }
     }
- 
+    
+    static func initializeDateFormatter() {
+        //Dispatch once code snippet for efficiency
+        dispatch_once(&dispatchToken) {
+            dateFormatter.lenient = false
+            dateFormatter.locale = NSLocale(localeIdentifier: "en_US_POSIX")
+            dateFormatter.timeZone = NSTimeZone(abbreviation: "PDT")
+            
+        }
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+    }
 }
+
+//As a best practice we're using extensions for CustomStringConvertible,
+//CustomDebugStringConvertible, and Equatable protocols
 
 // MARK: - Equatable
 extension Student: Equatable {}
@@ -124,12 +132,13 @@ extension Student: CustomDebugStringConvertible {
         
         let clazz = "Student: "
         //Specifying NSDictionary for better formatting
+        //Forcing unwrapping with `!`
         let aNull = NSNull()
-        let details: NSDictionary = ["firstName": firstName != nil ? firstName!: aNull,
-                                     "lastName": lastName != nil ? lastName!:aNull,
-                                     "email": email != nil ? email!: aNull,
-                                     "age": age.description,
-                                     "birthday": birthday != nil ? Student.dateFormatter.stringFromDate(birthday!): aNull,
+        let details: NSDictionary = ["firstName": firstName,
+                                     "lastName": lastName,
+                                     "email": email,
+                                     "age": age != nil ? age!.description : aNull,
+                                     "birthday": birthday != nil ? Student.dateFormatter.stringFromDate(birthday): aNull,
                                      "dateEnrolled": dateEnrolled != nil ? Student.dateFormatter.stringFromDate(dateEnrolled!): aNull]
         
         return clazz + details.description;

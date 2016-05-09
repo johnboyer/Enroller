@@ -2,9 +2,10 @@
 //  School.swift
 //  Enroller
 //
+//
 /*
 	Created by John Boyer on 4/15/16.
-	Copyright © 2016 Rodax Software. All rights reserved.
+	Copyright © 2016 Rodax Software, Inc. All rights reserved.
  
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -23,11 +24,12 @@ import Foundation
 import CocoaLumberjack
 
 
+/// School class
 public class School {
     
     /// School Name
     private let name = "Swift University"
-    
+    /// List of applicants
     private var applicants = [Applicant]()
     /// List of students
     private var students = [Student]()
@@ -35,51 +37,65 @@ public class School {
     private var catalog = [Course]()
     
     //MARK: Private methods
-    private func readJSONFile(fileName: String) throws -> AnyObject {
+    
+    /// Reads a JSON file 
+    private func readJSONFile(fileName: String) -> AnyObject? {
         let url = NSBundle.mainBundle().URLForResource(fileName, withExtension: "json")
         let data = NSData(contentsOfURL: url!)
-        return try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
+        //Note: JSONObjectWithData(...) has a known memory leak, may want to 
+        //consider using a third pary library
+        return try? NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
     }
     
-    private func initializeApplicants(users: [[String: AnyObject]]) {
+    /// Adds dictionary of users to the applications array
+    private func addApplicants(users: [[String: AnyObject]]) {
         
         for user in users {
             do {
                 let applicant = try Applicant(dictionary: user)
                 applicants.append(applicant)
             } catch {
-                print("JSON error: \(error)")
+                //`error` is a local constant
+                DDLogError("JSON error: \(error)")
             }
         }
         
          DDLogDebug("Finished initializing applicants: \(applicants)")
     }
     
+    /// Adds users fetched from a web service to the application array
     private func initializeApplicants() {
         let baseUri = "http://jsonplaceholder.typicode.com"
         let path = "/users"
         
         let url = NSURL(string: baseUri + path)
         let request = NSURLRequest(URL: url!)
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        //Note: Using an ephermeral session configuration to avoid a memory leak
+        //caused by using the default session configuration
+        //http://footle.org/2015/10/10/fixing-a-swift-memory-leak
+        let config = NSURLSessionConfiguration.ephemeralSessionConfiguration()
         let session = NSURLSession(configuration: config)
         
         DDLogInfo("Initializing applicants")
-        let task = session.dataTaskWithRequest(request, completionHandler: {(data, response, error) in
+        let task = session.dataTaskWithRequest(request, completionHandler: {
+            //Prevent memory leak by creating a capture list for self, without
+            //the capture list, we have a memory leak here.
+            [unowned self] (data, response, error) in
             
             if(error != nil) {
                 DDLogError("Error fetching applications from server: \(error)")
             } else {
                 
                 do {
+                    //Since we know that the JSON is a dictionary of string keys
+                    //we're forcing the downcast to [[String: AnyObject]] using
+                    //as! type cast operator
                     let users = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments) as! [[String: AnyObject]]
-                    
-                    dispatch_async(dispatch_get_main_queue(), {
-                        self.initializeApplicants(users)
-                    })
+                    self.addApplicants(users)
                     
                 }  catch  {
-                    print("JSON error: \(error)")
+                    //`error` is local constant
+                    DDLogError("JSON error: \(error)")
                     
                 }
             }
@@ -91,17 +107,21 @@ public class School {
         
     }
     
+    /// Initializes the roster array
     private func initializeRoster() throws {
         DDLogInfo("Initializing student roster")
         
-        guard let json = try readJSONFile("students") as? [String: AnyObject] else {
-            preconditionFailure("Unable intialize roster")
+        //Exit if there's a problem reading the file
+        guard let json = readJSONFile("students") as? [String: AnyObject] else {
+            throw JSONError.FileReadFailure
         }
         
+        //Throw an error if there's no key for students
         guard let roster = json["students"] as? [[String: AnyObject]] else {
             throw JSONError.KeyNotFound("students")
         }
         
+        //Build the list of students
         for student:[String: AnyObject] in roster {
             let aStudent = try Student(dictionary: student)
             students.append(aStudent)
@@ -110,11 +130,13 @@ public class School {
         DDLogDebug("Student Roster: \(students)")
     }
     
+    /// Initializes the catalog array
     private func initializeCatalog() throws {
         
         DDLogInfo("Initializing course catalog")
-        //Need guard clause here...
-        let json = try readJSONFile("courses")
+        guard let json = readJSONFile("courses") else {
+           throw JSONError.FileReadFailure
+        }
         
         assert(json["courses"] != nil, "Courses array is nil")
         //Need guard clause here...
@@ -132,18 +154,22 @@ public class School {
     }
     
     //MARK: Public methods
+    /// Init method
     public init() {
         
         do {
             try initializeCatalog()
             try initializeRoster()
-            initializeApplicants()
-            DDLogInfo("Finished School initialization")
         } catch JSONError.KeyNotFound(let key) {
             DDLogError("`\(key)` JSON key not found")
         } catch let unknown {
             DDLogError("\(unknown) error occurred")
         }
+        
+        dispatchAfter(2.0, closure: { [unowned self] in
+            self.initializeApplicants()
+            DDLogInfo("Finished initializing school")
+        })
         
     }
     

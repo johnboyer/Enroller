@@ -2,9 +2,10 @@
 //  Course.swift
 //  Enroller
 //
+//
 /*
 	Created by John Boyer on 4/14/16.
-	Copyright © 2016 Rodax Software. All rights reserved.
+	Copyright © 2016 Rodax Software, Inc. All rights reserved.
  
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -22,75 +23,77 @@
 import Foundation
 
 //MARK: - Course class
+/// Course class
 class Course {
     
     /// Course code
-    var code: String?
+    var code: String
     /// Title
-    var title: String?
+    var title: String
     /// Class capacity
-    var capacity: Int?
+    var capacity: Int
     /// Start time
     var startTime: String = "HH:mm"
     /// Duration
-    var duration: Int?
+    var duration: Int
     /// Days offered
     // Su, M, T, W, Th, F, Sa
-    var days: [String]?
+    var days: [String]
     /// Credit hours
-    var creditHours: Int?
+    var creditHours: Int
     
-    /// Intializer
-    init(courseDictionary: [String: AnyObject]) throws {
+    /// Init method
+    init(code: String, title: String, creditHours: Int, startTime: String, duration: Int, days: [String], capacity: Int) {
+        self.code = code
+        self.title = title
+        self.creditHours = creditHours
+        self.startTime = startTime
+        self.duration = duration
+        self.days = days
+        self.capacity = capacity
+    }
+    
+    /// Convenience intializer takes a course dictionary
+    convenience init(courseDictionary: [String: AnyObject]) throws {
         
-        //Set code
         guard let code = courseDictionary["code"] as? String else {
             throw JSONError.KeyNotFound("code");
         }
-        
-        self.code = code
-        
-        //Set title
+
         guard let title = courseDictionary["title"] as? String else {
             throw JSONError.KeyNotFound("title")
         }
-        
-        self.title = title
         
         guard let creditHours = courseDictionary["creditHours"] as? Int else {
             throw JSONError.KeyNotFound("creditHours")
         }
         
-        self.creditHours = creditHours
-        
         guard let startTime = courseDictionary["startTime"] as? String else {
             throw JSONError.KeyNotFound("startTime")
         }
-        
-        self.startTime = startTime
-        
+    
         guard let duration = courseDictionary["duration"] as? Int else {
             throw JSONError.KeyNotFound("duration")
         }
         
-        self.duration = duration
-        
         guard let days = courseDictionary["days"] as? [String] else {
             throw JSONError.KeyNotFound("days")
         }
-        
-        self.days = days
-        
+    
         guard let capacity = courseDictionary["capacity"] as? Int else {
             throw JSONError.KeyNotFound("capacity")
         }
         
-        self.capacity = capacity
+        self.init(code: code, title: title, creditHours: creditHours, startTime: startTime, duration: duration, days: days, capacity: capacity);
         
     }
 }
 
+//As a best practice we're using extensions for CustomStringConvertible and
+//CustomDebugStringConvertible protocols
+
 //MARK: - CustomStringConvertible
+/// CustomStringConvertible extension class
 extension Course: CustomStringConvertible {
     var description: String {
         return debugDescription
@@ -98,17 +101,17 @@ extension Course: CustomStringConvertible {
 }
 
 //MARK: - CustomDebugStringConvertible
+/// CustomDebugStringConvertible extension class
 extension Course: CustomDebugStringConvertible {
     var debugDescription: String {
         let clazz = "Course: "
-        let details = ["code": code!,
-                       "title": title!,
+        let details = ["code": code,
+                       "title": title,
                        "startTime": startTime,
-                       "duration": duration!,
-                       "capacity": capacity!,
-                       "days": days!,
-                       "creditHours": creditHours!]
-        
+                       "duration": duration,
+                       "capacity": capacity,
+                       "days": days,
+                       "creditHours": creditHours]
         
         return clazz + details.description
 

@@ -2,9 +2,10 @@
 //  AppDelegate.swift
 //  Enroller
 //
+//
 /*
 	Created by John Boyer on 4/14/16.
-	Copyright © 2016 Rodax Software. All rights reserved.
+	Copyright © 2016 Rodax Software, Inc. All rights reserved.
  
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -27,8 +28,12 @@ import CocoaLumberjack
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    /// Main window
     var window: UIWindow?
+    /// School instance
+    var school: School?
     
+    /// Debug a student
     private func debug(student: Student) {
         print("Custom debugDescription:")
         print(student.debugDescription);
@@ -56,6 +61,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7
         DDLog.addLogger(fileLogger)
         
+        //Set the default debug to off during profiling
+//        defaultDebugLevel = .Off
+        
         DDLogInfo("Logging framework initialized")
         return true
     }
@@ -68,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //1) Initialize School object
         DDLogInfo("Instantiate the School object")
-        let school = School()
+        self.school = School()
         
         //2 Enroll a student
 //        aStudent.firstName = "Alex"
@@ -88,18 +96,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                            lastName: "Brown",
                            birthday: "1998-04-04")
         
-        school.enroll(alex)
+        school!.enroll(alex)
         
         //3) Withdraw a student
 
         let email = "jennifer@example.com"
-        let jennifer = school.findStudent(email)
+        let jennifer = school!.findStudent(email)
         if jennifer != nil {
-            school.withdraw(jennifer!)
+            school!.withdraw(jennifer!)
         } else {
             DDLogWarn("`\(email)` not found")
         }
-        
             
         return true
     }

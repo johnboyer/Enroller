@@ -2,9 +2,10 @@
 //  Applicant.swift
 //  Enroller
 //
+//
 /*
     Created by John Boyer on 4/20/16.
-	Copyright © 2016 Rodax Software. All rights reserved.
+	Copyright © 2016 Rodax Software, Inc. All rights reserved.
  
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -23,14 +24,16 @@ import Foundation
 
 public class Applicant {
     
+    var address: Address
     var name: String
     var email: String
     var applicantId: Int
     
-    init(applicantId: Int, name: String, email: String) {
+    init(applicantId: Int, name: String, email: String, address: Address) {
         self.applicantId = applicantId
         self.name = name
         self.email = email
+        self.address = address
     }
     
     convenience init(dictionary: [String: AnyObject]) throws {
@@ -46,7 +49,13 @@ public class Applicant {
             throw JSONError.KeyNotFound("name")
         }
         
-        self.init(applicantId: applicantId, name: name, email: email)
+        guard let addressDictionary = dictionary["address"] as! [String: AnyObject]? else {
+             throw JSONError.KeyNotFound("name")
+        }
+        
+        let address = try Address(dictionary: addressDictionary)
+        
+        self.init(applicantId: applicantId, name: name, email: email, address: address)
     }
     
 }
