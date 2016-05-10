@@ -41,6 +41,12 @@ class SchoolTestCase: XCTestCase {
         super.tearDown()
     }
     
+    /// Test School.catalog property
+    func testCatalog() {
+        XCTAssertNotNil(school?.catalog)
+        XCTAssertTrue(school?.catalog.count == 4, "catalog.count != 4")
+    }
+    
     /// Test School.withdraw()
     func testWithdraw() {
         if let student = school?.findStudent("jennifer@example.com") {
@@ -71,6 +77,12 @@ class SchoolTestCase: XCTestCase {
         XCTAssertNil(school?.findStudent("john@example"))
         XCTAssertNotNil(school?.findStudent("jane@example.com"))
         XCTAssertNotNil(school?.findStudent("jennifer@example.com"))
+    }
+    
+    /// Test School.findCourse(_:)
+    func testFindCourse() {
+        XCTAssertNotNil(school?.findCourse("CS101"))
+        XCTAssertNil(school?.findCourse("CS102"))
     }
     
     func testExample() {

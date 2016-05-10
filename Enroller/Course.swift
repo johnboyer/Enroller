@@ -24,23 +24,23 @@ import Foundation
 
 //MARK: - Course class
 /// Course class
-class Course {
+public class Course {
     
     /// Course code
-    var code: String
+    private(set) var code: String
     /// Title
-    var title: String
+    private(set) var title: String
     /// Class capacity
-    var capacity: Int
+    private(set) var capacity: Int
     /// Start time
-    var startTime: String = "HH:mm"
+    private(set) var startTime: String = "HH:mm"
     /// Duration
-    var duration: Int
+    private(set) var duration: Int
     /// Days offered
     // Su, M, T, W, Th, F, Sa
-    var days: [String]
+    private(set) var days: [String]
     /// Credit hours
-    var creditHours: Int
+    private(set) var creditHours: Int
     
     /// Init method
     init(code: String, title: String, creditHours: Int, startTime: String, duration: Int, days: [String], capacity: Int) {
@@ -87,6 +87,7 @@ class Course {
         self.init(code: code, title: title, creditHours: creditHours, startTime: startTime, duration: duration, days: days, capacity: capacity);
         
     }
+    
 }
 
 //As a best practice we're using extensions for CustomStringConvertible and
@@ -95,7 +96,7 @@ class Course {
 //MARK: - CustomStringConvertible
 /// CustomStringConvertible extension class
 extension Course: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         return debugDescription
     }
 }
@@ -103,7 +104,7 @@ extension Course: CustomStringConvertible {
 //MARK: - CustomDebugStringConvertible
 /// CustomDebugStringConvertible extension class
 extension Course: CustomDebugStringConvertible {
-    var debugDescription: String {
+    public var debugDescription: String {
         let clazz = "Course: "
         let details = ["code": code,
                        "title": title,
@@ -114,6 +115,14 @@ extension Course: CustomDebugStringConvertible {
                        "creditHours": creditHours]
         
         return clazz + details.description
-
+        
     }
+}
+
+//MARK: - Equatable
+extension Course: Equatable { }
+
+/// Course ==
+public func ==(lhs: Course, rhs: Course) -> Bool {
+    return lhs.code == rhs.code
 }

@@ -33,8 +33,8 @@ public class School {
     private var applicants = [Applicant]()
     /// List of students
     private var students = [Student]()
-    /// Course catalog
-    private var catalog = [Course]()
+    /// Course catalog, set is private
+    private(set) var catalog = [Course]()
     
     //MARK: Private methods
     
@@ -192,6 +192,17 @@ public class School {
         }
         
         return enrolled
+    }
+    
+    /// Finds the course with give code
+    public func findCourse(code: String) -> Course? {
+        for course in catalog {
+            if course.code == code {
+                return course
+            }
+        }
+        
+        return nil
     }
     
     /// Finds student with given email
