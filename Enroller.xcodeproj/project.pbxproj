@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		112AB4DE001C948B2297472D /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30A4AC6AD5F9B64E7A849671 /* Pods.framework */; };
-		2F06CDBD1CE138F90019D4A6 /* SchoolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F06CDBC1CE138F90019D4A6 /* SchoolTestCase.swift */; };
 		2F06CDBE1CE13CE40019D4A6 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C301CC1CB3700D84B01 /* Course.swift */; };
 		2F06CDBF1CE13CE50019D4A6 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C301CC1CB3700D84B01 /* Course.swift */; };
 		2F06CDC01CE13CEC0019D4A6 /* School.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5D7C311CC1CB3700D84B01 /* School.swift */; };
@@ -42,6 +41,7 @@
 		2F5EFCC51CC459DE00EAB041 /* Enroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5EFCC41CC459DE00EAB041 /* Enroller.swift */; };
 		2F5EFCC61CC459DE00EAB041 /* Enroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5EFCC41CC459DE00EAB041 /* Enroller.swift */; };
 		2F5EFCC71CC459DE00EAB041 /* Enroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F5EFCC41CC459DE00EAB041 /* Enroller.swift */; };
+		2F7717271CE1676A00DA1309 /* SchoolTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F7717261CE1676A00DA1309 /* SchoolTestCase.swift */; };
 		2FB26F9D1CC3FC9D00D889BA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2FB26F9C1CC3FC9D00D889BA /* Podfile */; };
 		2FB26F9E1CC3FC9D00D889BA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2FB26F9C1CC3FC9D00D889BA /* Podfile */; };
 		2FB26F9F1CC3FC9D00D889BA /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2FB26F9C1CC3FC9D00D889BA /* Podfile */; };
@@ -69,7 +69,6 @@
 
 /* Begin PBXFileReference section */
 		24590FEFC770D31F8ED91E11 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		2F06CDBC1CE138F90019D4A6 /* SchoolTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SchoolTestCase.swift; path = ../Enroller/SchoolTestCase.swift; sourceTree = "<group>"; };
 		2F12961B1CCDA5F000FD960F /* Address.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Address.swift; sourceTree = "<group>"; };
 		2F4469B11CC8467D003E1D3E /* Applicant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Applicant.swift; sourceTree = "<group>"; };
 		2F5D7BFF1CC1CA9300D84B01 /* Enroller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Enroller.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +90,7 @@
 		2F5D7C371CC2AF5000D84B01 /* courses.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = courses.json; sourceTree = "<group>"; };
 		2F5EFCC01CC4582000EAB041 /* students.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = students.json; sourceTree = "<group>"; };
 		2F5EFCC41CC459DE00EAB041 /* Enroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enroller.swift; sourceTree = "<group>"; };
+		2F7717261CE1676A00DA1309 /* SchoolTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchoolTestCase.swift; sourceTree = "<group>"; };
 		2FB26F9C1CC3FC9D00D889BA /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		2FB26FAC1CC40EDD00D889BA /* CustomDDLogFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomDDLogFormatter.swift; sourceTree = "<group>"; };
 		30A4AC6AD5F9B64E7A849671 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -178,9 +178,9 @@
 		2F5D7C161CC1CA9300D84B01 /* EnrollerTests */ = {
 			isa = PBXGroup;
 			children = (
+				2F7717261CE1676A00DA1309 /* SchoolTestCase.swift */,
 				2F5D7C171CC1CA9300D84B01 /* EnrollerTests.swift */,
 				2F5D7C191CC1CA9300D84B01 /* Info.plist */,
-				2F06CDBC1CE138F90019D4A6 /* SchoolTestCase.swift */,
 			);
 			path = EnrollerTests;
 			sourceTree = "<group>";
@@ -425,10 +425,10 @@
 				2F5D7C181CC1CA9300D84B01 /* EnrollerTests.swift in Sources */,
 				2F4469B31CC8467D003E1D3E /* Applicant.swift in Sources */,
 				2F06CDC21CE13CF70019D4A6 /* Student.swift in Sources */,
-				2F06CDBD1CE138F90019D4A6 /* SchoolTestCase.swift in Sources */,
 				2F5EFCC61CC459DE00EAB041 /* Enroller.swift in Sources */,
 				2F12961D1CCDA5F000FD960F /* Address.swift in Sources */,
 				2F06CDC01CE13CEC0019D4A6 /* School.swift in Sources */,
+				2F7717271CE1676A00DA1309 /* SchoolTestCase.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
