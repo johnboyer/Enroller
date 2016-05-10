@@ -24,7 +24,13 @@ import Foundation
 import CocoaLumberjack
 
 
-/// School class
+/**
+  School API class for managing courses, students, and applicants.
+  - Author: John Boyer
+  - Date: Apr 15, 2016
+  - Version: 1.0
+  - Since: 1.0
+*/
 public class School {
     
     /// School Name
@@ -173,7 +179,12 @@ public class School {
         
     }
     
-    /// Enrolls a student
+    /**
+      Enrolls the given student.
+      - Parameter student: The student to enroll
+      - Returns: A boolean value of `true` if the student was enrolled;
+                 otherwise, `false`.
+    */
     public func enroll(student: Student) -> Bool {
         
         let enrolled: Bool
@@ -194,7 +205,11 @@ public class School {
         return enrolled
     }
     
-    /// Finds the course with give code
+    /**
+       Finds the course with give code.
+       - Parameter code: The course code
+       - Returns: A course object or `nil` if not found.
+    */
     public func findCourse(code: String) -> Course? {
         for course in catalog {
             if course.code == code {
@@ -205,7 +220,11 @@ public class School {
         return nil
     }
     
-    /// Finds student with given email
+    /**
+       Finds a student with the given email address.
+       - Parameter email: The student's email
+       - Returns: A student object or `nil` if not found.
+    */
     public func findStudent(email: String) -> Student? {
         for student in students {
             if student.email == email {
@@ -216,7 +235,12 @@ public class School {
         return nil
     }
     
-    /// Withdraws a student
+    /**
+      Withdraws the give student.
+      - Parameter student: The student to withdraw
+      - Returns: A boolean value of `true` if the student was withdrawn; 
+                 otherwise, `false`.
+    */
     public func withdraw(student: Student) -> Bool {
         
         let removed: Bool
